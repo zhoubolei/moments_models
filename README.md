@@ -1,4 +1,4 @@
-# Pretrained models for Moments in Time Dataset (under construction)
+# Pretrained models for Moments in Time Dataset
 
 We release the pre-trained models trained on [Moments in Time](http://moments.csail.mit.edu/).
 
@@ -12,7 +12,7 @@ We release the pre-trained models trained on [Moments in Time](http://moments.cs
 
 ### Models
 
-* RGB model in PyTorch (ResNet50 pretrained on ImageNet):
+* RGB model in PyTorch (ResNet50 pretrained on ImageNet). Tested sucessfully in PyTorch0.3 + python36.
 ```
     python test_model.py
 ```

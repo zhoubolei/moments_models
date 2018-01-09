@@ -1,6 +1,6 @@
-# the test script
+# demo code for using the RGB model trained on Moments in Time
 # load the trained model then forward pass on a given image
-
+# By Bolei Zhou
 
 import torch
 from torch.autograd import Variable as V
@@ -20,7 +20,6 @@ def load_model(modelID, categories):
         if not os.access(weight_file, os.W_OK):
             weight_url = 'http://moments.csail.mit.edu/moments_models/' + weight_file
             os.system('wget ' + weight_url)
-
         model = models.__dict__['resnet50'](num_classes=len(categories))
 
         useGPU = 0
@@ -51,15 +50,11 @@ modelID = 1
 with open('category_momentsv1.txt') as f:
     categories = [line.rstrip() for line in f.readlines()]
 
-
-
 # load the labels
 model = load_model(modelID, categories)
 
-
 # load the transformer
 tf = returnTF() # image transformer
-
 
 # load the test image
 if os.path.exists('test.jpg'):
@@ -74,11 +69,8 @@ logit = model.forward(input_img)
 h_x = F.softmax(logit, 1).data.squeeze()
 probs, idx = h_x.sort(0, True)
 
-print('RESULT ON ' + img_url)
-
-
+print(img_url)
 # output the prediction of action category
 print('--Top Actions:')
 for i in range(0, 5):
     print('{:.3f} -> {}'.format(probs[i], categories[idx[i]]))
-
