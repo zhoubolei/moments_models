@@ -19,12 +19,38 @@ We release the pre-trained models trained on [Moments in Time](http://moments.cs
 
 * Dynamic Image model in Caffe (TODO).
 
-* TRN models is already at [this repo](https://github.com/metalbubble/TRN-pytorch). Please go there to download the models.
+* TRN models is at [this repo](https://github.com/metalbubble/TRN-pytorch). To use the TRN model trained on Moments:
+
+Clone the TRN repo and Download the pretrained TRN model
+
+```
+git clone --recursive https://github.com/metalbubble/TRN-pytorch
+cd pretrain
+./download_models.sh
+cd ../sample_data
+./download_sample_data.sh
+```
+
+Test the pretrained model on the sample video
+
+![result](http://relation.csail.mit.edu/data/juggling.gif)
+
+```
+python test_video.py --arch InceptionV3 --dataset moments \
+    --weight pretrain/TRN_moments_RGB_InceptionV3_TRNmultiscale_segment8_best.pth.tar \
+    --frame_folder sample_data/juggling_frames 
+
+RESULT ON sample_data/juggling_frames
+1.000 -> juggling
+0.000 -> catching
+0.000 -> balancing
+
+```
 
 
 ### Reference
 
-Mathew Monfort, Bolei Zhou, Sarah Adel Bargal, Alex Andonian, Tom Yan, Kandan Ramakrishnan, Lisa Brown, Quanfu Fan, Dan Gutfreund, Carl Vondrick, Aude Oliva. 'Moments in Time Dataset: one million videos for event understanding'. arXiv. XXX:XXX. 
+Mathew Monfort, Bolei Zhou, Sarah Adel Bargal, Alex Andonian, Tom Yan, Kandan Ramakrishnan, Lisa Brown, Quanfu Fan, Dan Gutfreund, Carl Vondrick, Aude Oliva. 'Moments in Time Dataset: one million videos for event understanding'. arXiv:1801.03150. [pdf](https://arxiv.org/pdf/1801.03150.pdf)
 
 
 ### Acknowledgements
