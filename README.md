@@ -25,7 +25,7 @@ Clone the TRN repo and Download the pretrained TRN model
 
 ```
 git clone --recursive https://github.com/metalbubble/TRN-pytorch
-cd pretrain
+cd TRN-pytorch/pretrain
 ./download_models.sh
 cd ../sample_data
 ./download_sample_data.sh
