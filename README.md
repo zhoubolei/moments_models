@@ -17,7 +17,7 @@ We release the pre-trained models trained on [Moments in Time](http://moments.cs
     python test_model.py
 ```
 
-* Dynamic Image model in Caffe (TODO).
+* Dynamic Image model in Caffe: use the [testing script](compute_prob_dynImg.py).
 
 * TRN models is at [this repo](https://github.com/metalbubble/TRN-pytorch). To use the TRN model trained on Moments:
 
