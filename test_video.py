@@ -102,17 +102,14 @@ else:
     print('Extracting frames using ffmpeg...')
     frames = extract_frames(args.video_file, args.num_segments)
 
-# Prepre input tensor
+# Prepare input tensor
 data = torch.stack([transform(frame) for frame in frames])
 input_var = Variable(data.view(-1, 3, data.size(2), data.size(3)),
                      volatile=True)
 
 # Make video prediction
-logits = model(input_var).mean(dim=0)
-# logits = model(input_var)
-print(logits.shape)
-# h_x = torch.mean(F.softmax(logits, 1), dim=0).data
-h_x = F.softmax(logits).data
+logits = model(input_var)
+h_x = F.softmax(logits, 1).mean(dim=0).data
 probs, idx = h_x.sort(0, True)
 
 # Output the prediction.
