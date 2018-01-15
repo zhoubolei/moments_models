@@ -12,7 +12,7 @@ We release the pre-trained models trained on [Moments in Time](http://moments.cs
 
 ### Models
 
-* RGB model in PyTorch (ResNet50 pretrained on ImageNet). Tested sucessfully in PyTorch0.3 + python36.
+* RGB model in PyTorch (ResNet50 pretrained on ImageNet). Run the following [script](test_model.py) to download and run the test sample. The model is ested sucessfully in PyTorch0.3 + python36. 
 ```
     python test_model.py
 ```
