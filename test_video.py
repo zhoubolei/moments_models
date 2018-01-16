@@ -1,6 +1,20 @@
-"""Test pre-trained model on a single video.
+"""Test pre-trained RGB model on a single video.
 
-Bolei Zhou and Alex Andonian
+Date: 01/15/18
+Authors: Bolei Zhou and Alex Andonian
+
+This script accepts an mp4 video as the command line argument --video_file
+and averages ResNet50 (trained on Moments) predictions on num_segment equally
+spaced frames (extracted using ffmpeg).
+
+Alternatively, one may instead provide the path to a directory containing
+video frames saved as jpgs, which are sorted and forwarded through the model.
+
+ResNet50 trained on Moments is used to predict the action for each frame,
+and these class probabilities are average to produce a video-level predction.
+
+Optionally, one can generate a new video --rendered_output from the frames
+used to make the prediction with the predicted category in the top-left corner.
 
 """
 
@@ -23,6 +37,7 @@ from test_model import load_model, load_categories, load_transform
 
 
 def extract_frames(video_file, num_frames=8):
+    """Return a list of PIL image frames uniformly sampled from an mp4 video."""
     try:
         os.makedirs(os.path.join(os.getcwd(), 'frames'))
     except OSError:
@@ -52,6 +67,7 @@ def extract_frames(video_file, num_frames=8):
 
 
 def load_frames(frame_paths, num_frames=8):
+    """Load PIL images from a list of file paths."""
     frames = [Image.open(frame).convert('RGB') for frame in frame_paths]
     if len(frames) >= num_frames:
         return frames[::int(np.ceil(len(frames) / float(num_frames)))]
@@ -60,6 +76,7 @@ def load_frames(frame_paths, num_frames=8):
 
 
 def render_frames(frames, prediction):
+    """Write the predicted category in the top-left corner of each frame."""
     rendered_frames = []
     for frame in frames:
         img = np.array(frame)
