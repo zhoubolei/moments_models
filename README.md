@@ -35,19 +35,19 @@ cd ../sample_data
 ./download_sample_data.sh
 ```
 
-Test the pretrained model on the sample video
+Test the pretrained model on the sample video (Bolei is juggling ;-]!)
 
-![result](http://relation.csail.mit.edu/data/juggling.gif)
+![result](http://relation.csail.mit.edu/data/bolei_juggling.gif)
 
 ```
 python test_video.py --arch InceptionV3 --dataset moments \
     --weight pretrain/TRN_moments_RGB_InceptionV3_TRNmultiscale_segment8_best.pth.tar \
-    --frame_folder sample_data/juggling_frames 
+    --frame_folder sample_data/bolei_juggling
 
-RESULT ON sample_data/juggling_frames
-1.000 -> juggling
-0.000 -> catching
-0.000 -> balancing
+RESULT ON sample_data/bolei_juggling
+0.982 -> juggling
+0.003 -> flipping
+0.003 -> spinning
 
 ```
 
