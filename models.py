@@ -8,43 +8,6 @@ import torchvision.models as models
 from torchvision import transforms
 
 
-# def load_model(modelID, categories):
-#     if modelID == 1:
-#         weight_file = 'moments_RGB_resnet50_imagenetpretrained.pth.tar'
-#         if not os.access(weight_file, os.W_OK):
-#             weight_url = 'http://moments.csail.mit.edu/moments_models/' + weight_file
-#             os.system('wget ' + weight_url)
-#         model = models.__dict__['resnet50'](num_classes=len(categories))
-
-#         useGPU = 0
-#         if useGPU == 1:
-#             checkpoint = torch.load(weight_file)
-#         else:
-#             checkpoint = torch.load(weight_file, map_location=lambda storage,
-#                                     loc: storage)  # allow cpu
-
-#         state_dict = {str.replace(str(k), 'module.', ''): v for k, v in checkpoint['state_dict'].items()}
-#         model.load_state_dict(state_dict)
-
-#     model.eval()
-#     return model
-
-
-def load_transform():
-    """Load the image transformer."""
-    return transforms.Compose([
-        transforms.Resize((224, 224)),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406],
-                             [0.229, 0.224, 0.225])])
-
-
-def load_categories():
-    """Load categories."""
-    with open('category_momentsv1.txt') as f:
-        return [line.rstrip() for line in f.readlines()]
-
-
 def conv3x3x3(in_planes, out_planes, stride=1):
     """3x3x3 convolution with padding."""
     return nn.Conv3d(
@@ -263,16 +226,6 @@ def resnet50(num_classes=339, pretrained=True):
     model = modify_resnets(model)
     return model
 
-        # weight_file = 'moments_RGB_resnet50_imagenetpretrained.pth.tar'
-        # if not os.access(weight_file, os.W_OK):
-            # weight_url = 'http://moments.csail.mit.edu/moments_models/' + weight_file
-            # os.system('wget ' + weight_url)
-
-        # checkpoint = torch.load(weight_file, map_location=lambda storage, loc: storage)  # Load on cpu
-        # state_dict = {str.replace(str(k), 'module.', ''): v for k, v in checkpoint['state_dict'].items()}
-        # model.load_state_dict(state_dict)
-    # return model
-
 
 def resnet3d50(num_classes=339, pretrained=True, **kwargs):
     """Constructs a ResNet3D-50 model."""
@@ -287,12 +240,17 @@ def load_model(arch):
     model.eval()
     return model
 
-        # model =
-        # weight_file = 'moments_RGB_imagenet_resnet3d50_segment16.pth.tar'
-        # if not os.access(weight_file, os.W_OK):
-            # weight_url = 'http://moments.csail.mit.edu/moments_models/' + weight_file
-            # os.system('wget ' + weight_url)
-        # checkpoint = torch.load(weight_file, map_location=lambda storage, loc: storage)  # Load on cpu
-        # state_dict = {str.replace(str(k), 'module.', ''): v for k, v in checkpoint['state_dict'].items()}
-        # model.load_state_dict(state_dict)
-    # return model
+
+def load_transform():
+    """Load the image transformer."""
+    return transforms.Compose([
+        transforms.Resize((224, 224)),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406],
+                             [0.229, 0.224, 0.225])])
+
+
+def load_categories():
+    """Load categories."""
+    with open('category_momentsv1.txt') as f:
+        return [line.rstrip() for line in f.readlines()]
