@@ -12,13 +12,20 @@ We release the pre-trained models trained on [Moments in Time](http://moments.cs
 
 ### Models
 
-* RGB model in PyTorch (ResNet50 pretrained on ImageNet). Run the following [script](test_model.py) to download and run the test sample. The model is tested sucessfully in PyTorch0.3 + python36. 
+* RGB model in PyTorch (ResNet50 pretrained on ImageNet). Run the following [script](test_model.py) to download and run the test sample. The model is tested sucessfully in PyTorch 1.0 + python36.
 ```
     python test_model.py
 ```
-To test the model on your own video, supply the path of an mp4 file to this [script](test_video.py) like so:
+To test the 2D model on your own video (frame-wise with temporal pooling), supply the path of an mp4 file to this [script](test_video.py) like so:
 ```
-    python test_video.py --video_file path/to/video.mp4
+    python test_video.py --video_file path/to/video.mp4 --arch resnet50
+```
+
+* **NEW (February 2019):** 3D ResNet50 (inflated from 2D RGB model) trained on 16 frame inputs at 5 fps.
+
+The 3D model can be downloaded and run using a similar command:
+```
+    python test_video.py --video_file path/to/video.mp4 --arch resnet3d50
 ```
 
 * Dynamic Image model in Caffe: use the [testing script](compute_prob_dynImg.py).
