@@ -61,7 +61,7 @@ RESULT ON sample_data/bolei_juggling
 
 ### Reference
 
-Mathew Monfort, Bolei Zhou, Sarah Adel Bargal, Alex Andonian, Tom Yan, Kandan Ramakrishnan, Lisa Brown, Quanfu Fan, Dan Gutfreund, Carl Vondrick, Aude Oliva. 'Moments in Time Dataset: one million videos for event understanding'. arXiv:1801.03150. [pdf](https://arxiv.org/pdf/1801.03150.pdf), [bib](http://moments.csail.mit.edu/data/moments.bib)
+Mathew Monfort, Alex Andonian, Bolei Zhou, Kandan Ramakrishnan, Sarah Adel Bargal, Tom Yan, Lisa Brown, Quanfu Fan, Dan Gutfruend, Carl Vondrick, Aude Oliva. Moments in Time Dataset: one million videos for event understanding. IEEE Transactions on Pattern Analysis and Machine Intelligence, 2019. [pdf](https://arxiv.org/pdf/1801.03150.pdf), [bib](http://moments.csail.mit.edu/data/moments.bib)
 
 
 ### Acknowledgements
