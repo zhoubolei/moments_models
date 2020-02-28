@@ -28,6 +28,16 @@ The 3D model can be downloaded and run using a similar command:
     python test_video.py --video_file path/to/video.mp4 --arch resnet3d50
 ```
 
+* **NEW (February 2020):** Multi-label Moments 3D Resnet50 Model.
+
+Download the Multi-label Moments 3D Resnet50 Model trained with wLSEP [here](http://data.csail.mit.edu/soundnet/actions3/multi_moments_resnet3d50_wlsep.pth.tar) 
+
+In order to [NetDissect](https://github.com/CSAILVision/NetDissect-Lite) Moments models, download the Broden  datasets with action regions:
+- [Broden (224x224)](http://data.csail.mit.edu/soundnet/actions3/broden1_224.zip)
+- [Broden (227x227)](http://data.csail.mit.edu/soundnet/actions3/broden1_227.zip)
+- [Broden (384x384)](http://data.csail.mit.edu/soundnet/actions3/broden1_384.zip)
+Note: these can be used with NetDissect without requiring modifications to the code.
+
 * Dynamic Image model in Caffe: use the [testing script](compute_prob_dynImg.py).
 
 * TRN models is at [this repo](https://github.com/metalbubble/TRN-pytorch). To use the TRN model trained on Moments:
