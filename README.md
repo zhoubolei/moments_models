@@ -32,6 +32,8 @@ The 3D model can be downloaded and run using a similar command:
 
 Download the Multi-label Moments 3D Resnet50 Model trained with wLSEP [here](http://data.csail.mit.edu/soundnet/actions3/multi_moments_resnet3d50_wlsep.pth.tar) 
 
+We uploaded a file with our implementations of the different loss functions used in our Multi Moments paper (https://arxiv.org/abs/1911.00232) in loss_functions.py
+
 In order to [NetDissect](http://netdissect.csail.mit.edu/) Moments models, download the Broden  datasets with action regions:
 - [Broden (224x224)](http://data.csail.mit.edu/soundnet/actions3/broden1_224.zip)
 - [Broden (227x227)](http://data.csail.mit.edu/soundnet/actions3/broden1_227.zip)
