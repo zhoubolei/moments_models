@@ -28,11 +28,11 @@ The 3D model can be downloaded and run using a similar command:
     python test_video.py --video_file path/to/video.mp4 --arch resnet3d50
 ```
 
-* **NEW (February 2020):** Multi-label Moments 3D Resnet50 Model.
+* **NEW (February 2020):** Multi-label Moments 3D Resnet50 Model, Broden dataset with action regions and loss implementations including wLSEP.  If you use any of these files please cite our Multi Moments paper (https://arxiv.org/abs/1911.00232).
 
 Download the Multi-label Moments 3D Resnet50 Model trained with wLSEP [here](http://data.csail.mit.edu/soundnet/actions3/multi_moments_resnet3d50_wlsep.pth.tar) 
 
-We uploaded a file with our implementations of the different loss functions used in our Multi Moments paper (https://arxiv.org/abs/1911.00232) in loss_functions.py
+We uploaded a [python file](loss_functions.py) with our pytorch implementations of the different loss functions used in our Multi Moments paper (https://arxiv.org/abs/1911.00232).
 
 In order to [NetDissect](http://netdissect.csail.mit.edu/) Moments models, download the Broden  datasets with action regions:
 - [Broden (224x224)](http://data.csail.mit.edu/soundnet/actions3/broden1_224.zip)
@@ -70,10 +70,11 @@ RESULT ON sample_data/bolei_juggling
 
 ```
 
-
 ### Reference
 
 Mathew Monfort, Alex Andonian, Bolei Zhou, Kandan Ramakrishnan, Sarah Adel Bargal, Tom Yan, Lisa Brown, Quanfu Fan, Dan Gutfruend, Carl Vondrick, Aude Oliva. Moments in Time Dataset: one million videos for event understanding. IEEE Transactions on Pattern Analysis and Machine Intelligence, 2019. [pdf](https://arxiv.org/pdf/1801.03150.pdf), [bib](http://moments.csail.mit.edu/data/moments.bib)
+
+Mathew Monfort, Kandan Ramakrishnan, Alex Andonian, Barry A McNamara, Alex Lascelles, Bowen Pan, Quanfu Fan, Dan Gutfreund, Rogerio Feris, Aude Oliva. Multi-Moments in Time: Learning and Interpreting Models for Multi-Action Video Understanding. arxiv preprint arXiv:1911.00232, 2019. [pdf](https://arxiv.org/pdf/1911.00232), [bib](http://moments.csail.mit.edu/multi_data/multi_moments.bib)
 
 
 ### Acknowledgements
