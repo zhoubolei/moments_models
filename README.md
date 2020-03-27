@@ -79,4 +79,4 @@ Mathew Monfort, Kandan Ramakrishnan, Alex Andonian, Barry A McNamara, Alex Lasce
 
 ### Acknowledgements
 
-The project is supported by MIT-IBM Watson AI Lab and IBM Research.
+The project is supported by MIT-IBM Watson AI Lab, IBM Research, the SystemsThatLearn@CSAIL / Ignite Grant and the Intelligence Advanced Research Projects Activity (IARPA) via Department of Interior/ Interior Business Center (DOI/IBC) contract number D17PC00341.
