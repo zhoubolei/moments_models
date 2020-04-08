@@ -36,6 +36,7 @@ def lsep(scores, labels, weights=None):
 """ https://www.aaai.org/ocs/index.php/IJCAI/IJCAI11/paper/viewPaper/2926
 We pre-compute the rank weights (rank_w) into a tensor as below:
 rank_w = torch.zeros(num_classes)
+sum = 0.
 for i in range(num_classes):
   sum += 1./(i+1)
   rank_w[i] = sum
