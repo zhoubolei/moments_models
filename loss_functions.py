@@ -33,20 +33,26 @@ def lsep(scores, labels, weights=None):
            scores.unsqueeze(1).expand(labels.size(0), labels.size(1), labels.size(1)))
   return diffs.exp().mul(mask).sum().add(1).log().mean()
 
-# https://www.aaai.org/ocs/index.php/IJCAI/IJCAI11/paper/viewPaper/2926
-def warp(scores, labels, weights=None):
+""" https://www.aaai.org/ocs/index.php/IJCAI/IJCAI11/paper/viewPaper/2926
+We pre-compute the rank weights (rank_w) into a tensor as below:
+rank_w = torch.zeros(num_classes)
+sum = 0.
+for i in range(num_classes):
+  sum += 1./(i+1)
+  rank_w[i] = sum
+"""
+
+def warp(scores, labels, rank_w, weights=None):
   mask = ((labels.unsqueeze(1).expand(labels.size(0), labels.size(1), labels.size(1)) -
            labels.unsqueeze(2).expand(labels.size(0), labels.size(1), labels.size(1))) > 0).float()
   diffs = (scores.unsqueeze(2).expand(labels.size(0), labels.size(1), labels.size(1)) -
            scores.unsqueeze(1).expand(labels.size(0), labels.size(1), labels.size(1))).add(1)
   if weights is not None:
-    return (diffs.clamp(0,1e10).mul(mask).sum(1).mul(weights).masked_select(labels.byte())
-                 .mul(warp_r(scores.sort(descending=True)[1].masked_select(labels.byte()).float()))
-                 .mean())
+    return (diffs.clamp(0,1e10).mul(mask).sum(1).div(mask.sum(1)).mul(weights).masked_select(labels.bool())
+                 .mul(rank_w.index_select(0,scores.sort(descending=True)[1].masked_select(labels.bool()))).mean())
   else:
-    return (diffs.clamp(0,1e10).mul(mask).sum(1).masked_select(labels.byte())
-                 .mul(warp_r(scores.sort(descending=True)[1].masked_select(labels.byte()).float()))
-                 .mean())
+    return (diffs.clamp(0,1e10).mul(mask).sum(1).div(mask.sum(1)).masked_select(labels.bool())
+                 .mul(rank_w.index_select(0,scores.sort(descending=True)[1].masked_select(labels.bool()))).mean())
 
 #https://ieeexplore.ieee.org/abstract/document/1683770
 def bp_mll(scores, labels, weights=None):
