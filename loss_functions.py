@@ -13,6 +13,8 @@
 --
 -- By Mathew Monfort, mmonfort@mit.edu
 '''
+import torch
+from torch.nn import functional as F
 
 # https://arxiv.org/abs/1911.00232
 def wlsep(scores, labels, weights=None):
@@ -21,9 +23,11 @@ def wlsep(scores, labels, weights=None):
   diffs = (scores.unsqueeze(2).expand(labels.size(0), labels.size(1), labels.size(1)) -
            scores.unsqueeze(1).expand(labels.size(0), labels.size(1), labels.size(1)))
   if weights is not None:
-    return diffs.exp().mul(mask).sum(1).add_(1).log().mul(weights).masked_select(labels.bool()).mean()
+    return F.pad(diffs.add(-(1-mask)*1e10),
+                 pad=(0,0,0,1)).logsumexp(dim=1).mul(weights).masked_select(labels.bool()).mean()
   else:
-    return diffs.exp().mul(mask).sum(1).add_(1).log().masked_select(labels.bool()).mean()
+    return F.pad(diffs.add(-(1-mask)*1e10),
+                 pad=(0,0,0,1)).logsumexp(dim=1).masked_select(labels.bool()).mean()
 
 # http://openaccess.thecvf.com/content_cvpr_2017/html/Li_Improving_Pairwise_Ranking_CVPR_2017_paper.html
 def lsep(scores, labels, weights=None):
@@ -71,5 +75,3 @@ def bce(output, labels, weights=None):
              bceCriterion(output, torch.autograd.Variable(labels))).sum(1).mean()
   else:
     return bceCriterion(output, torch.autograd.Variable(labels)).sum(1).mean()
-
-
