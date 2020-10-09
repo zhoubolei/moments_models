@@ -2,15 +2,10 @@
 
 Authors: Bolei Zhou, Alex Andonian and Mathew Monfort
 
-This script accepts an mp4 video as the command line argument --video_file
-and averages ResNet50 (trained on Moments) predictions on num_segment equally
-spaced frames (extracted using ffmpeg).
+This script accepts an mp4 video as the command line argument --video_file.
 
 Alternatively, one may instead provide the path to a directory containing
 video frames saved as jpgs, which are sorted and forwarded through the model.
-
-ResNet50 trained on Moments is used to predict the action for each frame,
-and these class probabilities are average to produce a video-level predction.
 
 Optionally, one can generate a new video --rendered_output from the frames
 used to make the prediction with the predicted category in the top-left corner.
