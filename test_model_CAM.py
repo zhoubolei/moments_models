@@ -67,16 +67,10 @@ def load_categories(filename):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="test on a single image")
-    parser.add_argument('--multi', dest='multi', action='store_true')
-    args = parser.parse_args()
 
     # load categories and model
-    if args.multi:
-      categories = load_categories('category_multi_momentsv2.txt')
-      model = load_model(categories, 'multi_moments_v2_RGB_resnet50_imagenetpretrained.pth.tar')
-    else:
-      categories = load_categories('category_momentsv2.txt')
-      model = load_model(categories, 'moments_v2_RGB_resnet50_imagenetpretrained.pth.tar')
+    categories = load_categories('category_momentsv2.txt')
+    model = load_model(categories, 'moments_v2_RGB_resnet50_imagenetpretrained.pth.tar')
 
     # load the model
     features_blobs = []

@@ -21,16 +21,31 @@ To test the 2D model on your own video (frame-wise with temporal pooling), suppl
     python test_video.py --video_file path/to/video.mp4 --arch resnet50
 ```
 
-* **NEW (February 2019):** 3D ResNet50 (inflated from 2D RGB model) trained on 16 frame inputs at 5 fps.
+We provide a 3D ResNet50 (inflated from 2D RGB model) trained on 16 frame inputs at 5 fps.
+
+The model has been recently updated with 305 classes and the following performance on the MiT-V2 dataset:
+
+Top-1 | Top-5
+28.4% | 54.5% 
 
 The 3D model can be downloaded and run using a similar command:
 ```
     python test_video.py --video_file path/to/video.mp4 --arch resnet3d50
 ```
 
-* **NEW (February 2020):** Multi-label Moments 3D Resnet50 Model, Broden dataset with action regions and loss implementations including wLSEP.  If you use any of these files please cite our Multi Moments paper (https://arxiv.org/abs/1911.00232).
+The Moments model
 
-Download the Multi-label Moments 3D Resnet50 Model trained with wLSEP [here](http://data.csail.mit.edu/soundnet/actions3/multi_moments_resnet3d50_wlsep.pth.tar) 
+We now include the Multi-label Moments (M-MiT) 3D Resnet50 Model, Broden dataset with action regions and loss implementations including wLSEP.  If you use any of these files please cite our Multi Moments paper (https://arxiv.org/abs/1911.00232).
+
+The multi-label model has been recently updated with 305 classes and the following performance on the M-MiT-V2 dataset:
+
+Top-1 | Top-5 | micro mAP | macro mAP
+59.4% | 81.7% | 62.4 | 39.4
+
+The 3D M-MiT model can be downloaded and run using the following command:
+```
+    python test_video.py --video_file path/to/video.mp4 --arch resnet3d50 --multi
+```
 
 We uploaded a [python file](loss_functions.py) with our pytorch implementations of the different loss functions used in our Multi Moments paper (https://arxiv.org/abs/1911.00232).
 
