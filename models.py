@@ -99,7 +99,7 @@ class ResNet3D(nn.Module):
 
     Conv3d = nn.Conv3d
 
-    def __init__(self, block, layers, shortcut_type='B', num_classes=339):
+    def __init__(self, block, layers, shortcut_type='B', num_classes=305):
         self.inplanes = 64
         super(ResNet3D, self).__init__()
         self.conv1 = self.Conv3d(3, 64, kernel_size=7, stride=(1, 2, 2), padding=(3, 3, 3), bias=False)
@@ -206,8 +206,9 @@ def modify_resnets(model):
 
 ROOT_URL = 'http://moments.csail.mit.edu/moments_models'
 weights = {
-    'resnet50': 'moments_RGB_resnet50_imagenetpretrained.pth.tar',
-    'resnet3d50': 'moments_RGB_imagenet_resnet3d50_segment16.pth.tar',
+    'resnet50': 'moments_v2_RGB_resnet50_imagenetpretrained.pth.tar',
+    'resnet3d50': 'moments_v2_RGB_imagenet_resnet3d50_segment16.pth.tar',
+    'multi_resnet3d50': 'multi_moments_v2_RGB_imagenet_resnet3d50_segment16.pth.tar',
 }
 
 
@@ -219,7 +220,7 @@ def load_checkpoint(weight_file):
     return {str.replace(str(k), 'module.', ''): v for k, v in checkpoint['state_dict'].items()}
 
 
-def resnet50(num_classes=339, pretrained=True):
+def resnet50(num_classes=305, pretrained=True):
     model = models.__dict__['resnet50'](num_classes=num_classes)
     if pretrained:
         model.load_state_dict(load_checkpoint(weights['resnet50']))
@@ -227,16 +228,25 @@ def resnet50(num_classes=339, pretrained=True):
     return model
 
 
-def resnet3d50(num_classes=339, pretrained=True, **kwargs):
+def resnet3d50(num_classes=305, pretrained=True, **kwargs):
     """Constructs a ResNet3D-50 model."""
     model = modify_resnets(ResNet3D(Bottleneck, [3, 4, 6, 3], num_classes=num_classes, **kwargs))
     if pretrained:
-        model.load_state_dict(load_checkpoint(weights['resnet3d50']))
+         model.load_state_dict(load_checkpoint(weights['resnet3d50']))
+    return model
+
+
+def multi_resnet3d50(num_classes=292, pretrained=True, **kwargs):
+    """Constructs a ResNet3D-50 model."""
+    model = modify_resnets(ResNet3D(Bottleneck, [3, 4, 6, 3], num_classes=num_classes, **kwargs))
+    if pretrained:
+        model.load_state_dict(load_checkpoint(weights['multi_resnet3d50']))
     return model
 
 
 def load_model(arch):
-    model = {'resnet3d50': resnet3d50, 'resnet50': resnet50}.get(arch, 'resnet3d50')()
+    model = {'resnet3d50': resnet3d50,
+             'multi_resnet3d50': multi_resnet3d50, 'resnet50': resnet50}.get(arch, 'resnet3d50')()
     model.eval()
     return model
 
@@ -250,7 +260,7 @@ def load_transform():
                              [0.229, 0.224, 0.225])])
 
 
-def load_categories():
+def load_categories(filename):
     """Load categories."""
-    with open('category_momentsv1.txt') as f:
+    with open(filename) as f:
         return [line.rstrip() for line in f.readlines()]

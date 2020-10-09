@@ -1,7 +1,6 @@
 """Test pre-trained RGB model on a single video.
 
-Date: 01/15/18
-Authors: Bolei Zhou and Alex Andonian
+Authors: Bolei Zhou, Alex Andonian and Mathew Monfort
 
 This script accepts an mp4 video as the command line argument --video_file
 and averages ResNet50 (trained on Moments) predictions on num_segment equally
@@ -31,20 +30,27 @@ from utils import extract_frames, load_frames, render_frames
 
 
 # options
-parser = argparse.ArgumentParser(description="test TRN on a single video")
+parser = argparse.ArgumentParser(description="test on a single video")
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument('--video_file', type=str, default=None)
 group.add_argument('--frame_folder', type=str, default=None)
+parser.add_argument('--multi', dest='multi', action='store_true')
 parser.add_argument('--rendered_output', type=str, default=None)
 parser.add_argument('--num_segments', type=int, default=16)
 parser.add_argument('--arch', type=str, default='resnet3d50', choices=['resnet50', 'resnet3d50'])
 args = parser.parse_args()
 
 # Load model
+if args.multi:
+    args.arch = 'multi_resnet3d50'
+
 model = models.load_model(args.arch)
 
 # Get dataset categories
-categories = models.load_categories()
+if args.multi:
+    categories = models.load_categories('category_multi_momentsv2.txt')
+else:
+    categories = models.load_categories('category_momentsv2.txt')
 
 # Load the video frame transform
 transform = models.load_transform()
@@ -62,7 +68,7 @@ else:
 
 
 # Prepare input tensor
-if args.arch == 'resnet3d50':
+if 'resnet3d50' in args.arch:
     # [1, num_frames, 3, 224, 224]
     input = torch.stack([transform(frame) for frame in frames], 1).unsqueeze(0)
 else:
