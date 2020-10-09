@@ -39,8 +39,9 @@ We now include the Multi-label Moments (M-MiT) 3D Resnet50 Model, Broden dataset
 
 The multi-label model has been recently updated with 305 classes and the following performance on the M-MiT-V2 dataset:
 
-Top-1 | Top-5 | micro mAP | macro mAP
-59.4% | 81.7% | 62.4 | 39.4
+| Top-1 | Top-5 | micro mAP | macro mAP |
+| :---: | :---: | :---: |
+| 59.4% | 81.7% | 62.4 | 39.4 |
 
 The 3D M-MiT model can be downloaded and run using the following command:
 ```
